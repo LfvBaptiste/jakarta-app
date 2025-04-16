@@ -1,0 +1,35 @@
+{% extends "layout.peb" %}
+
+{% block css %}
+
+    {{ parent() }}
+
+    <style>
+        body {
+            padding: 10px;
+            background-color: green
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Hello {{ name }}</h1>
+
+    <h2>Un utilisateur</h2>
+
+    {{ user.username }} - {{ user.email }}
+
+    <p>{{ user }}</p>
+
+    <h2>Liste des utilisateurs</h2>
+    <p>Il y a {{ userList | length }} utilisateurs </p>
+    <ul>
+        {% for person in userList %}
+            <li>
+                {{ person }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+

@@ -1,0 +1,17 @@
+services:
+  payara:
+    image: payara/micro:latest
+    container_name: payara-micro
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target:/opt/payara/deployments:rw
+    command: >
+      --deploy /opt/payara/deployments/app.war
+      --contextRoot /
+      --nocluster
+    networks:
+      - payara-network
+networks:
+  payara-network:
+    driver: bridge

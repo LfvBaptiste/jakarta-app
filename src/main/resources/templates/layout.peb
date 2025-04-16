@@ -1,0 +1,24 @@
+{# layout.peb #}
+<html>
+<head>
+    <title>{% block title %}My Website{% endblock %}</title>
+    {% block css %}
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+      >
+    {% endblock %}
+
+
+</head>
+<body>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        {% block footer %}
+            Copyright 2025
+        {% endblock %}
+    </footer>
+</body>
+</html>
