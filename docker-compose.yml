@@ -12,6 +12,23 @@ services:
       --nocluster
     networks:
       - payara-network
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: formation
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - payara-network
+
+volumes:
+  mariadb_data:
+
 networks:
   payara-network:
     driver: bridge
