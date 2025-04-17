@@ -1,0 +1,14 @@
+{%  extends "user/layout-user.peb" %}
+
+{% block content %}
+    <h1>Affichage d'un utilisateur</h1>
+    {% if user != null %}
+        <ol>
+            <li value="{{ user.id }}">
+                {{ user.username }} - {{ user.age }} yo
+            </li>
+        </ol>
+    {% else %}
+        <p>Aucun utilisateur trouvé</p>
+    {% endif %}
+{% endblock %}

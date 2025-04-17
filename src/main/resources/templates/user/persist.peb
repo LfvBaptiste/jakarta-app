@@ -1,0 +1,7 @@
+{%  extends "user/layout-user.peb" %}
+
+{% block content %}
+    <h1>Création d'un utilisateur</h1>
+
+    {{ user.username }} - {{ user.age }}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.peb" %}
+
+{% block nav %}
+<style>
+    nav{
+        margin: 2rem;
+        justify-content: unset;
+    }
+    .link{
+        padding-right: 1rem;
+    }
+</style>
+<a class="link" href="/">Accueil</a>
+<a class="link">||</a>
+<a class="link" href="/user/persist">Création</a>
+<a class="link" href="/user/list">Liste</a>
+{% endblock %}

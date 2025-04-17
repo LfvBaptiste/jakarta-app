@@ -12,13 +12,14 @@
 
 </head>
 <body>
+    <nav>
+        {% block nav %}{% endblock %}
+    </nav>
     <main>
         {% block content %}{% endblock %}
     </main>
     <footer>
-        {% block footer %}
-            Copyright 2025
-        {% endblock %}
+        {% block footer %}{% endblock %}
     </footer>
 </body>
 </html>
