@@ -9,12 +9,12 @@ import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserDao {
+public class UserDao extends GenericDAO<User, Long>{
     private static final Logger LOGGER = Logger.getLogger(UserDao.class.getName());
     private EntityManager em;
 
     public UserDao(EntityManager em) {
-        this.em = em;
+        super(em, User.class);
     }
 
     // Méthode utilitaire pour exécuter une opération en transaction

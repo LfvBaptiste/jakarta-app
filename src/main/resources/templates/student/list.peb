@@ -1,0 +1,21 @@
+{%  extends "layout.peb" %}
+
+{% block content %}
+    <h1>Liste des élèves :</h1>
+    {% if students != null %}
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Nombre de cours</th>
+            </tr>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.courses | length }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Aucun élève trouvé</p>
+    {% endif %}
+{% endblock %}
