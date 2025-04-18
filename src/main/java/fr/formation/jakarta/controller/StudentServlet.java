@@ -10,10 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/student/*")
-public class StudentServlet extends AbstractServlet {
+public class StudentServlet extends AbstractCRUDServlet<Student, Long> {
 
     @Override
     protected void doGet(
@@ -22,45 +21,46 @@ public class StudentServlet extends AbstractServlet {
     ) throws ServletException, IOException {
         String action = req.getPathInfo();
         switch (action) {
-            case "/create"  -> this.create(req, resp);
             case "/list"    -> this.showAll(req, resp);
             case "/show"    -> this.showOne(req, resp);
+            case "/delete"  -> this.delete(req, resp);
+            case "/create"  -> this.showForm(req, resp, false);
+            case "/edit"    -> this.showForm(req, resp, true);
             default         -> resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
-    private void showAll(
-            HttpServletRequest req,
-            HttpServletResponse resp
-    ) throws ServletException, IOException {
-        EntityManager em = JpaUtils.getEntityManager();
-        StudentDAO dao = new StudentDAO(em);
-        List<Student> students = dao.findAll();
-
-        context.put("students", students);
-        render(resp, "student/list.peb");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        switch (req.getPathInfo()){
+            case "/create"  -> this.create(req, resp);
+            case "/edit"    -> this.update(req, resp);
+            default         -> resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
-    private void create(
-            HttpServletRequest req,
-            HttpServletResponse resp
-    ) throws ServletException, IOException {
-        EntityManager em = JpaUtils.getEntityManager();
-        StudentDAO dao = new StudentDAO(em);
+    @Override
+    protected StudentDAO getDAO(EntityManager em) {return new StudentDAO(em);}
 
+    @Override
+    protected String getEntityName() {return "student";}
+
+    @Override
+    protected void hydrateForm(HttpServletRequest req, Student entity) {
+        context.put("entity", entity);
     }
 
-    private void showOne(
-            HttpServletRequest req,
-            HttpServletResponse resp
-    ) throws ServletException, IOException {
-        EntityManager em = JpaUtils.getEntityManager();
-        StudentDAO dao = new StudentDAO(em);
-
+    @Override
+    protected Student hydrateEntity(HttpServletRequest req) {
+        Student entity = new Student();
         Long id = Long.parseLong(req.getParameter("id"));
-        Student student = dao.findById(id);
+        entity.setId(id);
+        entity.setName(req.getParameter("name"));
+        return entity;
+    }
 
-        context.put("student", student);
-        render(resp, "student/showOne.peb");
+    @Override
+    protected Long getIdFromRequest(HttpServletRequest req) {
+        return Long.parseLong(req.getParameter("id"));
     }
 }

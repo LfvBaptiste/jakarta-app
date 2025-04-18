@@ -2,13 +2,13 @@
 
 {% block content %}
     <h1>Liste des élèves :</h1>
-    {% if students != null %}
+    {% if studentsList != null %}
         <table>
             <tr>
                 <th>Nom</th>
                 <th>Nombre de cours</th>
             </tr>
-            {% for student in students %}
+            {% for student in studentsList %}
                 <tr>
                     <td>{{ student.name }}</td>
                     <td>{{ student.courses | length }}</td>
